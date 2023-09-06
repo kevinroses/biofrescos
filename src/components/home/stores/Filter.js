@@ -51,24 +51,23 @@ const Filter = (props) => {
     );
     setMinMax(value);
     setFilterData(newData);
-    // handleDataByFilter?.(newData);
   };
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
+
   const handleClose = (value) => {
     setAnchorEl(null);
-    // setSelectedFilterValue(value);
   };
 
-  // Split the array into two halves.
   const dataWithoutPrice = filterData?.filter(
     (item) => item?.value !== "price" && item?.value !== "ratings"
   );
   const midpoint = Math.ceil(dataWithoutPrice.length / 2);
   const firstHalf = dataWithoutPrice.slice(0, midpoint);
   const secondHalf = dataWithoutPrice.slice(midpoint);
+
   return (
     <div>
       <Button
@@ -169,7 +168,6 @@ const Filter = (props) => {
                     </CustomStackFullWidth>
                   </Grid>
                 ) : null}
-
                 <Grid item xs={12}>
                   <CustomStackFullWidth
                     spacing={1}
@@ -181,7 +179,6 @@ const Filter = (props) => {
                       ratingValue={getRatingValue()}
                       fontSize="20px"
                       handleChangeRatings={handleChangeRatings}
-                      // readOnly
                     />
                   </CustomStackFullWidth>
                 </Grid>
@@ -194,6 +191,17 @@ const Filter = (props) => {
   );
 };
 
-Filter.propTypes = {};
+Filter.propTypes = {
+  border: PropTypes.bool.isRequired,
+  priceRange: PropTypes.array.isRequired,
+  filterDataAndFunctions: PropTypes.shape({
+    filterData: PropTypes.array.isRequired,
+    setFilterData: PropTypes.func.isRequired,
+    handleCheckbox: PropTypes.func.isRequired,
+    handleChangeRatings: PropTypes.func.isRequired,
+    getRatingValue: PropTypes.func.isRequired,
+    currentTab: PropTypes.number.isRequired,
+  }).isRequired,
+};
 
 export default Filter;
