@@ -15,7 +15,6 @@ import {
 } from "../../../styled-components/CustomStyles.style";
 import { useTranslation } from "react-i18next";
 import HighToLow from "../../../sort/HighToLow";
-import { filterTypes } from "../stores/Filter";
 import CustomSlider from "../../search/CustomSlider";
 import CustomRatings from "../../search/CustomRatings";
 import SearchFilter from "../../search/search-filter";
@@ -31,12 +30,13 @@ const MobileSideDrawer = (props) => {
     setPageData,
     selectedCategoriesHandler,
   } = props;
-  const [filterData, setFilterData] = useState(filterTypes);
+
+  const [filterData, setFilterData] = useState([]);
   const [minMax, setMinMax] = useState([0, 0]);
   const priceFilterRange = [{ min_price: 0, max_price: 100 }];
   const { t } = useTranslation();
+
   const handleCheckbox = (value, e) => {
-    // setSelectedFilterValues((prev) => [...prev, value]);
     let newData = filterData.map((item) =>
       item?.value === value?.value
         ? { ...item, checked: e.target.checked }
@@ -44,12 +44,14 @@ const MobileSideDrawer = (props) => {
     );
     setFilterData(newData);
   };
+
   const handleMinMax = (value) => {
     if (value[0] === 0) {
       value[0] = priceFilterRange?.[0]?.min_price;
     }
     setMinMax(value);
   };
+
   const content = (
     <CustomStackFullWidth sx={{ mt: "60px" }}>
       <Grid container>
@@ -152,6 +154,7 @@ const MobileSideDrawer = (props) => {
       </Grid>
     </CustomStackFullWidth>
   );
+
   return (
     <Drawer
       anchor="right"
@@ -172,6 +175,15 @@ const MobileSideDrawer = (props) => {
   );
 };
 
-MobileSideDrawer.propTypes = {};
+MobileSideDrawer.propTypes = {
+  open: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
+  handleSortBy: PropTypes.func.isRequired,
+  sortBy: PropTypes.string.isRequired,
+  searchValue: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
+  setPageData: PropTypes.func.isRequired,
+  selectedCategoriesHandler: PropTypes.func.isRequired,
+};
 
 export default MobileSideDrawer;
