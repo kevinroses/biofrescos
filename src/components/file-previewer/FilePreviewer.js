@@ -3,10 +3,10 @@ import {
   CustomBoxForFilePreviewer,
   FilePreviewerWrapper,
   IconButtonImagePreviewer,
+  CustomBoxImageText,
 } from "./FilePreviewer.style";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Typography from "@mui/material/Typography";
-import { CustomBoxImageText } from "../form-fields/FileInputField";
 import { Grid, Stack, useMediaQuery } from "@mui/material";
 import FileInputField from "../form-fields/FileInputField";
 import pdfIcon from "./assets/pdf.png";
@@ -34,6 +34,7 @@ const FilePreviewer = (props) => {
 
   const [multipleImages, setMultipleImages] = useState([]);
   const matches = useMediaQuery("(min-width:400px)");
+
   useEffect(() => {
     if (file?.length > 0) {
       const newImages = [];
@@ -44,9 +45,9 @@ const FilePreviewer = (props) => {
         })
       );
       setMultipleImages(newImages);
-    } else {
     }
   }, [file]);
+
   const renderFilePreview = () => {
     if (file?.length > 0) {
       return (
@@ -104,6 +105,7 @@ const FilePreviewer = (props) => {
       );
     }
   };
+
   const previewBasedOnType = (file, fileIndex) => {
     if (
       file.type === "jpg" ||
@@ -162,6 +164,7 @@ const FilePreviewer = (props) => {
       );
     }
   };
+  
   return (
     <Stack width="100%" alignItems="center" spacing={3}>
       {renderFilePreview()}
@@ -173,5 +176,5 @@ const FilePreviewer = (props) => {
     </Stack>
   );
 };
-FilePreviewer.propTypes = {};
+
 export default FilePreviewer;
